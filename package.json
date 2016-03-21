@@ -1,0 +1,11 @@
+{
+  "name": "Imagine",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Image Engine: create screencap images from web pages",
+  "author": "Joe Dursun <joe@clockwisemd.com>",
+  "dependencies": {
+    "express": "4.13.4",
+    "phantomjs-prebuilt": "2.1.3"
+  }
+}
