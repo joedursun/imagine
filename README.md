@@ -7,4 +7,3 @@
 First, install Docker. You can find platform specific instructions [here](https://docs.docker.com/engine/installation/).
 
 Next you'll want to build the Docker image: `docker build -t imagine-dev .`
-Note: it will likely take a long time to build. PhantomJS takes a loooooong time to compile (up to an hour).

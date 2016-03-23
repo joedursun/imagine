@@ -1,12 +1,31 @@
-var express = require('express');
+var express = require('express'),
+    app = express(),
+    phantom = require('phantom'),
+    PORT = 8080;
 
-// Constants
-var PORT = 8080;
+function screenCap(resourceLocation, resultType) {
+  var result;
+  phantom.create().then(function (ph) {
+    ph.createPage().then(function(page){
+      page.open(resourceLocation).then(function(status) {
+        if(['png', 'jpg', 'jpeg', 'gif'].indexOf(resultType) > -1) {
+          result = page.renderBase64(tmpFile);
+        } else if(resultType === 'pdf') {
+          result = page.render(resourceLocation);
+        }
+        phantom.exit();
+      });
+    });
+  });
+  return result;
+}
 
-// App
-var app = express();
-app.get('/', function (req, res) {
-  res.send('Hello world\n');
+app.get('/capture', function (req, res) {
+  var resourceLocation = req.query.resource,
+      resultType = req.query.type,
+      result;
+  result = screenCap(resourceLocation, resultType)
+  res.send(result);
 });
 
 app.listen(PORT);
