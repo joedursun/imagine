@@ -1,10 +1,9 @@
 var express = require('express'),
     tmp = require('tmp'),
-    phantom = require('phantom'),
     fs = require('fs'),
     childProcess = require('child_process');
 
-var app = express(),
+var router = express.Router(),
     PORT = 8080;
 
 // stupid hack for Docker not exiting cleanly
@@ -21,7 +20,7 @@ function screenCap(resourceLocation, resultType, response, responseFormat) {
 }
 
 function screenCapToEncodedString(resourceLocation, response) {
-  var cmd = 'phantomjs /src/render_encoded_string.js ' + resourceLocation;
+  var cmd = 'phantomjs /src/helpers/render_encoded_string.js ' + resourceLocation;
 
   childProcess.exec(cmd, function(error, stdout, stderr){
     response.send(stdout);
@@ -34,7 +33,7 @@ function screenCapToFile(resourceLocation, resultType, response) {
     var cmd,
         fileName = path.split('.')[0] + '.' + resultType;
 
-    cmd = 'phantomjs /src/render_file.js "' + resourceLocation + '" ' + fileName;
+    cmd = 'phantomjs /src/helpers/render_file.js "' + resourceLocation + '" ' + fileName;
 
     childProcess.exec(cmd, function(err, stdout, stderr){
       response.sendFile(fileName, function (err){
@@ -50,7 +49,7 @@ function screenCapToFile(resourceLocation, resultType, response) {
   });
 }
 
-app.get('/capture', function (req, res) {
+router.get('/capture', function (req, res) {
   var resourceLocation = req.query.resource,
       resultType = req.query.type,
       responseFormat = req.query.format || 'file';
@@ -58,5 +57,4 @@ app.get('/capture', function (req, res) {
   screenCap(resourceLocation, resultType, res, responseFormat);
 });
 
-app.listen(PORT);
-console.log('Running on http://localhost:' + PORT);
+module.exports = router;

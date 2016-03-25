@@ -19,4 +19,4 @@ EXPOSE 8080
 ENV PATH /src/node_modules/phantomjs-prebuilt/lib/phantom/bin:$PATH
 
 # Start up the app
-CMD ["node", "/src/index.js"]
+CMD ["node", "/src/app.js"]
