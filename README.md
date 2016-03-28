@@ -8,7 +8,7 @@ First, install Docker. You can find platform specific instructions [here](https:
 
 To build and start up the app in a Docker container run: `./run.sh`
 
-You'll now be able to access the app from your browser at `$DOCKER_HOST:8080`.
+You'll now be able to access the app from your browser at `$APP_HOST:8080`.
 
 ## Usage
 
@@ -25,6 +25,9 @@ Below is a list of parameters along with their description:
 
 ## Examples
 
-To get a base64 encoded image string: `curl $APP_HOST/capture?type=png&format=string&resource=https://github.com`
+To get a base64 encoded image string:
+```bash
+curl $APP_HOST:8080/capture?type=png&format=string&resource=https://github.com
+```
 
 To get the same image as a file instead of an encoded string, just leave out the `format` parameter; `type=file` is the default.
