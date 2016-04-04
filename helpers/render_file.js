@@ -3,7 +3,11 @@ var webPage = require('webpage'),
 
 var page = webPage.create(),
     resource = system.args[1],
-    fileName = system.args[2];
+    fileName = system.args[2],
+    width = system.args[3] || 1920,
+    height = system.args[4] || 1080;
+
+page.viewportSize = {width: width, height: height };
 
 page.open(resource, function (status){
   if (status !== 'success') {
