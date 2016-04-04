@@ -11,29 +11,40 @@ process.on('SIGINT', function() {
   process.exit();
 });
 
-function screenCap(resourceLocation, resultType, response, responseFormat) {
-  if(responseFormat === 'string'){
-    screenCapToEncodedString(resourceLocation, response);
-  } else {
-    screenCapToFile(resourceLocation, resultType, response);
-  }
+function screenCap(params, response) {
+  var handler;
+  handler = (params.format === 'string') ? screenCapToEncodedString : screenCapToFile;
+  handler(params, response);
 }
 
-function screenCapToEncodedString(resourceLocation, response) {
-  var cmd = 'phantomjs /src/helpers/render_encoded_string.js ' + resourceLocation;
+function screenCapToEncodedString(params, response) {
+  var resultType = params.type,
+      resource = params.resource,
+      responseFormat = params.format || 'file',
+      width = params.w || 1920,
+      height = params.h || 1080,
+      cmd;
+
+  cmd = ['phantomjs /src/helpers/render_string.js', resource, width, height].join(' ');
 
   childProcess.exec(cmd, function(error, stdout, stderr){
     response.send(stdout);
   });
 }
 
-function screenCapToFile(resourceLocation, resultType, response) {
+function screenCapToFile(params, response) {
+  var resultType = params.type,
+      resource = params.resource,
+      responseFormat = params.format || 'file',
+      width = params.w || 1920,
+      height = params.h || 1080;
+
   tmp.file(function tmpFileCreated(err, path, fd, cleanupCallback){
     if (err) throw err;
     var cmd,
         fileName = path.split('.')[0] + '.' + resultType;
 
-    cmd = 'phantomjs /src/helpers/render_file.js "' + resourceLocation + '" ' + fileName;
+    cmd = ['phantomjs /src/helpers/render_file.js', resource, fileName, width, height].join(' ');
 
     childProcess.exec(cmd, function(err, stdout, stderr){
       response.sendFile(fileName, function (err){
@@ -50,11 +61,7 @@ function screenCapToFile(resourceLocation, resultType, response) {
 }
 
 router.get('/capture', function (req, res) {
-  var resourceLocation = req.query.resource,
-      resultType = req.query.type,
-      responseFormat = req.query.format || 'file';
-
-  screenCap(resourceLocation, resultType, res, responseFormat);
+  screenCap(req.query, res);
 });
 
 module.exports = router;
