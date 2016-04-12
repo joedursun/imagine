@@ -19,8 +19,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(8080, function() {
-  console.log('Listening on port 8080!');
+app.listen(80, function() {
+  console.log('Listening on port 80!');
 });
 
 module.exports = app;

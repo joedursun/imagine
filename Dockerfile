@@ -13,8 +13,8 @@ RUN cd /src && npm install --production
 # Copy app source to container
 COPY . /src
 
-# Expose port 8080
-EXPOSE 8080
+# Expose port 80
+EXPOSE 80
 
 ENV PATH /src/node_modules/phantomjs-prebuilt/lib/phantom/bin:$PATH
 

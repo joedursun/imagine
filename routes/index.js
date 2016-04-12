@@ -4,7 +4,7 @@ var express = require('express'),
     childProcess = require('child_process');
 
 var router = express.Router(),
-    PORT = 8080;
+    PORT = 80;
 
 // stupid hack for Docker not exiting cleanly
 process.on('SIGINT', function() {
