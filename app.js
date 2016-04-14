@@ -2,6 +2,12 @@ var express = require('express');
 var routes = require('./routes/index');
 var app = express();
 
+var logRequest = function(req, res, next){
+  console.log('Incoming request: ', req.originalUrl);
+  next();
+}
+
+app.all('*', logRequest);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
