@@ -6,6 +6,8 @@ var express = require('express'),
 var router = express.Router(),
     PORT = 80;
 
+var acceptedFileTypes = ['pdf', 'png', 'jpg', 'gif'];
+
 // stupid hack for Docker not exiting cleanly
 process.on('SIGINT', function() {
   process.exit();
@@ -61,7 +63,14 @@ function screenCapToFile(params, response) {
 }
 
 router.get('/capture', function (req, res) {
-  screenCap(req.query, res);
+  if (acceptedFileTypes.indexOf(req.query.type) > -1) {
+    screenCap(req.query, res);
+  } else {
+    var msg = 'Invalid type param: ' + req.query.type,
+        responseStatus = 400;
+    console.log(msg);
+    res.status(responseStatus).send(msg);
+  }
 });
 
 module.exports = router;
