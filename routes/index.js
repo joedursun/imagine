@@ -48,7 +48,10 @@ function screenCapToFile(params, response) {
       height = params.h || 1080;
 
   tmp.file(function tmpFileCreated(err, path, fd, cleanupCallback){
-    if (err) throw err;
+    if (err) {
+      log.info(err);
+      return;
+    }
     var cmd,
         fileName = path.split('.')[0] + '.' + resultType;
 
@@ -58,10 +61,10 @@ function screenCapToFile(params, response) {
       response.sendFile(fileName, function (err){
         if (err) {
           log.info(err);
-          response.status(err.status).end();
+          return;
         }
         fs.unlink(fileName, function(err){
-          if (err) throw err;
+          if (err) { log.info(err); return; }
         });
       });
     });
