@@ -1,7 +1,8 @@
 var express = require('express'),
     tmp = require('tmp'),
     fs = require('fs'),
-    childProcess = require('child_process');
+    childProcess = require('child_process'),
+    log = require('winston');
 
 var router = express.Router(),
     PORT = 80;
@@ -16,7 +17,12 @@ process.on('SIGINT', function() {
 function screenCap(params, response) {
   var handler;
   handler = (params.format === 'string') ? screenCapToEncodedString : screenCapToFile;
-  handler(params, response);
+  try{
+    handler(params, response);
+  } catch (e) {
+    winston.info(e);
+    response.status(500).send('Something went wrong.');
+  }
 }
 
 function screenCapToEncodedString(params, response) {
@@ -51,7 +57,7 @@ function screenCapToFile(params, response) {
     childProcess.exec(cmd, function(err, stdout, stderr){
       response.sendFile(fileName, function (err){
         if (err) {
-          console.log(err);
+          log.info(err);
           response.status(err.status).end();
         }
         fs.unlink(fileName, function(err){
@@ -68,7 +74,7 @@ router.get('/capture', function (req, res) {
   } else {
     var msg = 'Invalid type param: ' + req.query.type,
         responseStatus = 400;
-    console.log(msg);
+    log.info(msg);
     res.status(responseStatus).send(msg);
   }
 });

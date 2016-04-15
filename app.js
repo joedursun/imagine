@@ -1,11 +1,14 @@
 var express = require('express');
 var routes = require('./routes/index');
 var app = express();
+var log = require('winston');
 
 var logRequest = function(req, res, next){
-  console.log('Incoming request: ', req.originalUrl);
+  log.info('Incoming request: ', req.originalUrl);
   next();
 }
+
+app.set('view engine', 'ejs');
 
 app.all('*', logRequest);
 app.use('/', routes);
@@ -26,7 +29,7 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(80, function() {
-  console.log('Listening on port 80!');
+  log.info('Listening on port 80!');
 });
 
 module.exports = app;
