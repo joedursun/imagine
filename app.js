@@ -10,7 +10,7 @@ var logRequest = function(req, res, next){
 
 app.set('view engine', 'ejs');
 
-app.all('*', logRequest);
+app.all('/capture*', logRequest);
 app.use('/', routes);
 
 // catch 404 and forward to error handler

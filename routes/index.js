@@ -71,6 +71,10 @@ function screenCapToFile(params, response) {
   });
 }
 
+router.get('/heartbeat', function (req, res) {
+  res.status(200).send('ok!');
+});
+
 router.get('/capture', function (req, res) {
   if (acceptedFileTypes.indexOf(req.query.type) > -1) {
     screenCap(req.query, res);
