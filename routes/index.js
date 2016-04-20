@@ -9,10 +9,6 @@ var router = express.Router(),
 
 var acceptedFileTypes = ['pdf', 'png', 'jpg', 'gif'];
 
-// stupid hack for Docker not exiting cleanly
-process.on('SIGINT', function() {
-  process.exit();
-});
 
 function screenCap(params, response) {
   var handler;

@@ -8,7 +8,13 @@ var logRequest = function(req, res, next){
   next();
 }
 
-app.set('view engine', 'ejs');
+// stupid hack for Docker not exiting cleanly
+process.on('SIGINT', function() {
+  process.exit();
+});
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'pug');
 
 app.all('/capture*', logRequest);
 app.use('/', routes);
