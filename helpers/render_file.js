@@ -1,5 +1,6 @@
 var webPage = require('webpage'),
-    system = require('system');
+    system = require('system'),
+    decode = require('./decode');
 
 var page = webPage.create(),
     resource = system.args[1],
@@ -9,7 +10,7 @@ var page = webPage.create(),
 
 page.viewportSize = {width: width, height: height };
 
-page.open(resource, function (status){
+page.open(decode.decode64(resource), function (status){
   if (status !== 'success') {
     console.log('could not open ' + resource);
     phantom.exit(1);

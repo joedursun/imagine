@@ -16,14 +16,15 @@ Currently there is only one API endpoint: `/capture`
 
 Below is a list of parameters along with their description:
 
-|**parameter** | **description** |
-| ------------ | --------------- |
-| type         | the file type: png, pdf, jpg, and gif |
-| format       | response format: file or string (base64 encoded; only for images) |
-| resource     | url of the page to be screen capped |
-| w            | viewport width to be passed to phantomjs |
-| h            | viewport height to be passed to phantomjs |
+|**parameter** | **description** | **default** |
+| ------------ | --------------- | ----------- |
+| type         | the file type: png, pdf, jpg, and gif | none |
+| format       | response format: file or string (base64 encoded; only for images) | file |
+| resource     | base64 encoded url of the page to be screen capped | none |
+| w            | viewport width to be passed to phantomjs | 1920 |
+| h            | viewport height to be passed to phantomjs | 1080 |
 
+Note: the resource param mentioned above must be base64 encoded to prevent issues with the url.
 
 ## Examples
 
@@ -31,8 +32,6 @@ To get a base64 encoded image string:
 ```bash
 curl $APP_HOST/capture?type=png&format=string&resource=https://github.com
 ```
-
-To get the same image as a file instead of an encoded string, just leave out the `format` parameter; `type=file` is the default.
 
 ## Troubleshooting
 
