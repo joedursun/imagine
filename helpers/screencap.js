@@ -18,8 +18,8 @@ var screenCapToEncodedString = function(params, response) {
   var resultType = params.type,
       resource = params.resource,
       responseFormat = params.format || 'file',
-      width = params.w || 1920,
-      height = params.h || 1080,
+      width = Number(params.w) || 1920,
+      height = Number(params.h) || 1080,
       cmd;
 
   cmd = ['phantomjs /src/helpers/render_string.js', resource, width, height].join(' ');

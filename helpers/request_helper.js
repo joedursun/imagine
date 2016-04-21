@@ -6,7 +6,7 @@ var log = function(req, res, next){
 }
 
 var check = function(req, res, next){
-  var whitelistRegexp = /\/capture\/?\?([A-z0-9=&]|\s)*$/;
+  var whitelistRegexp = /\/capture\/?\?([A-z0-9=&]|\n)*$/;
 
   if (whitelistRegexp.test(req.originalUrl)) {
     next();
