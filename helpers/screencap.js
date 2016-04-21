@@ -22,7 +22,7 @@ var screenCapToEncodedString = function(params, response) {
       height = Number(params.h) || 1080,
       cmd;
 
-  cmd = ['phantomjs /src/helpers/render_string.js', resource, width, height].join(' ');
+  cmd = ['phantomjs /src/helpers/render_encoded_string.js', resource, width, height].join(' ');
 
   childProcess.exec(cmd, function(error, stdout, stderr){
     response.send(stdout);
@@ -33,8 +33,8 @@ var screenCapToFile = function(params, response) {
   var resultType = params.type,
       resource = params.resource,
       responseFormat = params.format || 'file',
-      width = params.w || 1920,
-      height = params.h || 1080;
+      width = Number(params.w) || 1920,
+      height = Number(params.h) || 1080;
 
   tmp.file(function tmpFileCreated(err, path, fd, cleanupCallback){
     if (err) {
