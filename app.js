@@ -1,12 +1,8 @@
 var express = require('express');
 var routes = require('./routes/index');
+var requestHelper = require('./helpers/request_helper');
 var app = express();
 var log = require('winston');
-
-var logRequest = function(req, res, next){
-  log.info('Incoming request: ', req.originalUrl);
-  next();
-}
 
 // stupid hack for Docker not exiting cleanly
 process.on('SIGINT', function() {
@@ -16,7 +12,7 @@ process.on('SIGINT', function() {
 app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
 
-app.all('/capture*', logRequest);
+app.all('/capture*', requestHelper.log, requestHelper.check);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
