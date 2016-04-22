@@ -24,8 +24,13 @@ Below is a list of parameters along with their description:
 | w            | viewport width to be passed to phantomjs | 1920 |
 | h            | viewport height to be passed to phantomjs | 1080 |
 | wait         | number of milliseconds to wait after page load before taking screenshot | 0 |
+| signature    | base64 encoded SHA256 digest of resource param + app secret | none |
 
 Note: the resource param mentioned above must be base64 encoded to prevent issues with the url.
+
+The signature param is the base64 encoded SHA256 digest of the resource param + the app secret (in that order!)
+defined in config/app_data.yml. This signature is a way of disallowing service to untrusted traffic. In the event that
+a request comes in with a bad signature, a 403 status is returned along with the message "Invalid signature."
 
 ## Examples
 

@@ -12,7 +12,7 @@ process.on('SIGINT', function() {
 app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
 
-app.all('/capture*', requestHelper.log, requestHelper.check);
+app.all('/capture*', requestHelper.log, requestHelper.check, requestHelper.verifySignature);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
