@@ -34,7 +34,8 @@ var screenCapToFile = function(params, response) {
       resource = params.resource,
       responseFormat = params.format || 'file',
       width = Number(params.w) || 1920,
-      height = Number(params.h) || 1080;
+      height = Number(params.h) || 1080,
+      pageTimeout = Number(params.wait) || 0;
 
   tmp.file(function tmpFileCreated(err, path, fd, cleanupCallback){
     if (err) {
@@ -44,7 +45,7 @@ var screenCapToFile = function(params, response) {
     var cmd,
         fileName = path.split('.')[0] + '.' + resultType;
 
-    cmd = ['phantomjs /src/helpers/render_file.js', resource, fileName, width, height].join(' ');
+    cmd = ['phantomjs /src/helpers/render_file.js', resource, fileName, width, height, pageTimeout].join(' ');
 
     childProcess.exec(cmd, function(err, stdout, stderr){
       response.sendFile(fileName, function (err){

@@ -23,6 +23,7 @@ Below is a list of parameters along with their description:
 | resource     | base64 encoded url of the page to be screen capped | none |
 | w            | viewport width to be passed to phantomjs | 1920 |
 | h            | viewport height to be passed to phantomjs | 1080 |
+| wait         | number of milliseconds to wait after page load before taking screenshot | 0 |
 
 Note: the resource param mentioned above must be base64 encoded to prevent issues with the url.
 
@@ -30,7 +31,7 @@ Note: the resource param mentioned above must be base64 encoded to prevent issue
 
 To get a base64 encoded image string:
 ```bash
-curl $APP_HOST/capture?type=png&format=string&resource=https://github.com
+curl $APP_HOST/capture?type=png&format=string&resource=aHR0cDovL3JlZGRpdC5jb20vP2Zvbz1iYXI
 ```
 
 ## Troubleshooting
