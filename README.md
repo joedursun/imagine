@@ -6,7 +6,7 @@
 
 First, install Docker. You can find platform specific instructions [here](https://docs.docker.com/engine/installation/).
 
-To build and start up the app in a Docker container run: `./run.sh`
+To build and start up the app in a Docker container run: `./bin/run.sh`
 
 You'll now be able to access the app from your browser at `$APP_HOST:80`.
 
