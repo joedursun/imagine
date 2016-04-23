@@ -1,7 +1,7 @@
 {
   "name": "Imagine",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Image Engine: create screencap images from web pages",
   "author": "Joe Dursun <joe@clockwisemd.com>",
   "dependencies": {
