@@ -3,13 +3,14 @@ var routes = require('./routes/index');
 var requestHelper = require('./helpers/request_helper');
 var app = express();
 var log = require('winston');
+var path = require('path');
 
 // stupid hack for Docker not exiting cleanly
 process.on('SIGINT', function() {
   process.exit();
 });
 
-app.set('views', __dirname + '/views');
+app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
 
 app.all('/capture*', requestHelper.log, requestHelper.check, requestHelper.verifySignature);

@@ -20,16 +20,16 @@ var Base64 = {
       chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
       chr3 = ((enc3 & 3) << 6) | enc4;
 
-       output = output + String.fromCharCode(chr1);
+      output = output + String.fromCharCode(chr1);
 
-      if (enc3 != 64) {
+      if (enc3 !== 64) {
             output = output + String.fromCharCode(chr2);
       }
-    if (enc4 != 64) {
+
+      if (enc4 !== 64) {
           output = output + String.fromCharCode(chr3);
       }
     }
-
     return Base64._utf8_decode(output);
   },
 
@@ -39,7 +39,6 @@ var Base64 = {
     var c = c1 = c2 = 0;
 
     while ( i < utftext.length ) {
-
       c = utftext.charCodeAt(i);
 
       if (c < 128) {
@@ -57,9 +56,7 @@ var Base64 = {
         string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
         i += 3;
       }
-
     }
-
     return string;
   }
 }

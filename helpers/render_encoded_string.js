@@ -1,5 +1,4 @@
 var webPage = require('webpage'),
-    page = webPage.create(),
     decode = require('./decode'),
     args = require('system').args;
 
