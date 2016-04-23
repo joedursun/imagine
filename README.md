@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/LightshedHealth/imagine/badges/gpa.svg)](https://codeclimate.com/github/LightshedHealth/imagine)
+
 ## About
 
 "Imagine" is a web service that takes a given url and returns a screenshot in the desired format (e.g. png or pdf).
