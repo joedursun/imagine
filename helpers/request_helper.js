@@ -30,7 +30,7 @@ var verifySignature = function(req, res, next, appSecret) {
 }
 
 var check = function(req, res, next){
-  var whitelistRegexp = /\/capture\/?\?([A-z0-9=&]|\n)*$/;
+  var whitelistRegexp = /\/capture\/?\?([A-z0-9=&\/]|\n)*$/;
 
   if (whitelistRegexp.test(req.originalUrl)) {
     next();
