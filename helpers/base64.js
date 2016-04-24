@@ -61,4 +61,4 @@ var Base64 = {
   }
 }
 
-module.exports = { decode64: Base64.decode }
+module.exports = { base64: Base64 }

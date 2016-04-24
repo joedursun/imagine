@@ -1,5 +1,5 @@
 var webPage = require('webpage'),
-    decode = require('./decode'),
+    base64 = require('./base64').base64,
     args = require('system').args;
 
 var page = webPage.create(),
@@ -10,8 +10,8 @@ var page = webPage.create(),
 
 page.viewportSize = { width: width, height: height };
 
-page.open(decode.decode64(resource), function (status) {
-  var base64 = page.renderBase64('PNG');
-  console.log(base64);
+page.open(base64.decode(resource), function (status) {
+  var encodedImg = page.renderBase64('PNG');
+  console.log(encodedImg);
   phantom.exit();
 });
