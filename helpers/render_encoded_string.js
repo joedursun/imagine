@@ -1,5 +1,5 @@
 var webPage = require('webpage'),
-    base64 = require('./base64').base64,
+    base64 = require('./base64'),
     args = require('system').args;
 
 var page = webPage.create(),

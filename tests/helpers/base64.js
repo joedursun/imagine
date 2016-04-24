@@ -1,5 +1,5 @@
 var should = require('chai').should();
-var subject = require('../../helpers/base64').base64;
+var subject = require('../../helpers/base64');
 
 describe('Base64', function(){
   describe('#decode', function(){
