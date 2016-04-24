@@ -8,7 +8,7 @@ RUN apt-get install -y libfontconfig nodejs
 COPY package.json /src/package.json
 
 # Install app dependencies
-RUN cd /src && npm install --production
+RUN cd /src && npm install
 
 # Copy app source to container
 COPY . /src
@@ -16,7 +16,7 @@ COPY . /src
 # Expose port 80
 EXPOSE 80
 
-ENV PATH /src/node_modules/phantomjs-prebuilt/lib/phantom/bin:$PATH
+ENV PATH /src/node_modules/phantomjs-prebuilt/lib/phantom/bin:/src/node_modules/mocha/bin:$PATH
 
 # Start up the app
 CMD ["node", "/src/app.js"]

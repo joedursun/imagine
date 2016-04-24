@@ -11,5 +11,9 @@
     "winston": "2.2.0",
     "pug": "2.0.0-alpha6",
     "js-yaml": "3.6.0"
+  },
+  "devDependencies": {
+    "mocha": "2.4.5",
+    "chai": "3.5.0"
   }
 }
