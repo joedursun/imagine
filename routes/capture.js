@@ -1,15 +1,8 @@
-var express = require('express'),
+var router = require('express').Router(),
     log = require('winston'),
     screen = require('../helpers/screencap');
 
-var router = express.Router(),
-    PORT = 80;
-
 var acceptedFileTypes = ['pdf', 'png', 'jpg', 'gif'];
-
-router.get('/heartbeat', function (req, res) {
-  res.status(200).send('ok!');
-});
 
 router.get('/capture', function (req, res) {
   if (acceptedFileTypes.indexOf(req.query.type) > -1) {

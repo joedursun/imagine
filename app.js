@@ -1,5 +1,6 @@
 var express = require('express');
-var routes = require('./routes/index');
+var heartbeat = require('./routes/heartbeat');
+var capture = require('./routes/capture');
 var requestHelper = require('./helpers/request_helper');
 var app = express();
 var log = require('winston');
@@ -14,7 +15,7 @@ app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
 
 app.all('/capture*', requestHelper.log, requestHelper.check, requestHelper.verifySignature);
-app.use('/', routes);
+app.use('/', heartbeat, capture);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
