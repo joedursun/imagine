@@ -12,6 +12,14 @@ To build and start up the app in a Docker container run: `./bin/run.sh`
 
 You'll now be able to access the app from your browser at `$APP_HOST:80`.
 
+### Tests
+
+Included in the `bin` directory is a script to run the test suite in Docker: `./bin/test.sh`
+
+The test script will rebuild the Docker image before running the suite so the tests should always represent current code.
+Sometimes npm does not install packages successfully causing a failed build, but this can be dealt with by re-running
+the Docker build command (or the appropriate script if you're using them).
+
 ## Usage
 
 Currently there is only one API endpoint: `/capture`
