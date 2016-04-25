@@ -1,4 +1,5 @@
 [![Code Climate](https://codeclimate.com/github/LightshedHealth/imagine/badges/gpa.svg)](https://codeclimate.com/github/LightshedHealth/imagine)
+[![Dependency Status](https://david-dm.org/LightshedHealth/imagine.svg)](https://david-dm.org/LightshedHealth/imagine)
 
 ## About
 
