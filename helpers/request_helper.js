@@ -21,10 +21,19 @@ var verifySignature = function(req, res, next) {
   var signature = req.query.signature,
       resource = req.query.resource;
 
-  if (digest(resource + appSecret) === signature) {
-    next();
-  } else {
-    res.status(403).render('error', {message: 'Invalid signature.'});
+  if (resource && signature){
+    signature = signature.replace(/\s/g, '+'),
+    resource = resource.replace(/\s/g, '+');
+
+    if (digest(resource + appSecret) === signature) {
+      next();
+    } else { // invalid signature
+      res.status(403).render('error', {message: 'Invalid or missing signature.'});
+    }
+  } else if (!signature){ // missing signature
+    res.status(403).render('error', {message: 'Invalid or missing signature.'});
+  } else { // missing resource param
+    res.status(400).render('error', {message: 'Missing or invalid params'});
   }
 }
 
