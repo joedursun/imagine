@@ -15,9 +15,7 @@ var capture = function(params, response) {
 }
 
 var screenCapToEncodedString = function(params, response) {
-  var resultType = params.type,
-      resource = params.resource,
-      responseFormat = params.format || 'file',
+  var resource = params.resource,
       width = Number(params.w) || 1920,
       height = Number(params.h) || 1080,
       cmd;
@@ -32,7 +30,6 @@ var screenCapToEncodedString = function(params, response) {
 var screenCapToFile = function(params, response) {
   var resultType = params.type,
       resource = params.resource,
-      responseFormat = params.format || 'file',
       width = Number(params.w) || 1920,
       height = Number(params.h) || 1080,
       pageTimeout = Number(params.wait) || 0;
@@ -42,9 +39,10 @@ var screenCapToFile = function(params, response) {
       log.info(err);
       return;
     }
-    var cmd,
-        fileName = path.split('.')[0] + '.' + resultType;
 
+    var cmd, fileName;
+
+    fileName = path.split('.')[0] + '.' + resultType;
     cmd = ['phantomjs /src/helpers/render_file.js', resource, fileName, width, height, pageTimeout].join(' ');
 
     childProcess.exec(cmd, function(err, stdout, stderr){
