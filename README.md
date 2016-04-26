@@ -23,8 +23,6 @@ the Docker build command (or the appropriate script if you're using them).
 
 ## Usage
 
-Currently there is only one API endpoint: `/capture`
-
 Below is a list of parameters along with their description:
 
 |**parameter** | **description** | **default** |
