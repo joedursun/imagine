@@ -23,7 +23,9 @@ the Docker build command (or the appropriate script if you're using them).
 
 ## Usage
 
-Below is a list of parameters along with their description:
+Currently there are two routes that are available: `/capture` and `/heartbeat`. The heartbeat route is covered in the
+"Health Check" section below, and the capture route is covered in the following table:
+
 
 |**parameter** | **description** | **default** |
 | ------------ | --------------- | ----------- |
