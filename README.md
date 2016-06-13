@@ -45,10 +45,21 @@ a request comes in with a bad signature, a 403 status is returned along with the
 
 ## Examples
 
-To get a base64 encoded image string:
-```bash
-curl $APP_HOST/capture?type=png&format=string&resource=aHR0cDovL3JlZGRpdC5jb20vP2Zvbz1iYXI
+Assuming your app secret is `secret!` and you want to screenshot `https://github.com/LightshedHealth/imagine` then:
+
+```ruby
+# Example of creating signature in Ruby
+require 'base64'
+require 'digest'
+
+app_secret = ENV['IMAGINE_APP_SECRET'] # => 'secret!'
+url = 'https://github.com/LightshedHealth/imagine'
+encoded_url = Base64.strict_encode64(url) # => 'aHR0cHM6Ly9naXRodWIuY29tL0xpZ2h0c2hlZEhlYWx0aC9pbWFnaW5l'
+signature = Digest::SHA256.base64digest(encoded_url + app_secret) # => 'AyMK86hre66wous/C5KD2EOYK2+WHk8beSguu4lg0Jg='
 ```
+
+To get a png image visit the following url in your browser:
+`$APP_HOST/capture?type=png&resource=aHR0cHM6Ly9naXRodWIuY29tL0xpZ2h0c2hlZEhlYWx0aC9pbWFnaW5l&signature=AyMK86hre66wous/C5KD2EOYK2+WHk8beSguu4lg0Jg=`
 
 ## Troubleshooting
 
