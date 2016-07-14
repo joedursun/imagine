@@ -2,7 +2,7 @@ var router = require('express').Router(),
     log = require('winston'),
     screen = require('../helpers/screencap');
 
-var acceptedFileTypes = ['pdf', 'png', 'jpg', 'gif'];
+var acceptedFileTypes = ['pdf', 'png', 'jpg', 'gif', 'custom'];
 
 router.get('/capture', function (req, res) {
   if (acceptedFileTypes.indexOf(req.query.type) > -1) {

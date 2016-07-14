@@ -5,13 +5,56 @@ var log = require('winston'),
 
 var capture = function(params, response) {
   var handler;
-  handler = (params.format === 'string') ? screenCapToEncodedString : screenCapToFile;
+  switch (params.format) {
+    case 'string':
+      handler = screenCapToEncodedString;
+      break;
+    case 'custom':
+      handler = customScreenCapScript;
+      break;
+    default:
+      handler = screenCapToFile;
+  }
+
   try{
     handler(params, response);
   } catch (e) {
     log.info(e);
     response.status(500).send('Something went wrong.');
   }
+}
+
+var customScreenCapScript = function(params, response) {
+  tmp.file(function tmpFileCreated(err, path, fd, cleanupCallback){
+    if (err) {
+      log.info(err);
+      return;
+    }
+
+    var resultType = params.type,
+        resource = params.resource,
+        width = Number(params.w) || 1920,
+        height = Number(params.h) || 1080;
+
+    var cmd, fileName, stringParams;
+
+    fileName = path.split('.')[0] + '.' + resultType;
+    cmd = ['phantomjs /src/plugins/custom.js', resource, fileName, width, height].join(' ');
+
+    childProcess.exec(cmd, function(err, stdout, stderr){
+      if (stderr) log.info(stderr);
+
+      response.sendFile(fileName, function (err){
+        if (err) {
+          log.info(err);
+          return;
+        }
+        fs.unlink(fileName, function(err){
+          if (err) { log.info(err); return; }
+        });
+      });
+    });
+  });
 }
 
 var screenCapToEncodedString = function(params, response) {

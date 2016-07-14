@@ -8,27 +8,9 @@ var appData = yaml.safeLoad(fs.readFileSync('/src/config/app_data.yml'));
 var customjs = appData.customjs;
 
 var retrievePlugins = function(){
-  var file = fs.createWriteStream("/src/plugins/custom.js");
-  var sentRequest = request.get(customjs);
+  var cmd = 'curl -Lo /src/plugins/custom.js ' + customjs;
 
-  sentRequest.on('response', function(response){
-    if (response.statusCode !== 200) {
-      log.info('Plugin request failed with error code: ', response.statusCode);
-      return false;
-    }
-  });
-
-  sentRequest.on('error', function(err){
-    log.info(err);
-    return false;
-  });
-
-  sentRequest.pipe(file);
-
-  file.on('finish', function(){
-    file.close();
-  });
-
+  childProcess.execSync(cmd);
 }
 
 var run = function(){
