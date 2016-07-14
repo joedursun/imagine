@@ -5,11 +5,14 @@ var requestHelper = require('./helpers/request_helper');
 var app = express();
 var log = require('winston');
 var path = require('path');
+var setup = require('./setup');
 
 // stupid hack for Docker not exiting cleanly
 process.on('SIGINT', function() {
   process.exit();
 });
+
+setup.run();
 
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
