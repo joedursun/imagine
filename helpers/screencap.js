@@ -34,15 +34,21 @@ var customScreenCapScript = function(params, response) {
     var resultType = params.type,
         resource = params.resource,
         width = Number(params.w) || 1920,
-        height = Number(params.h) || 1080;
+        height = Number(params.h) || 1080,
+        wait = Number(params.wait) || 250;
 
     var cmd, fileName, stringParams;
 
     fileName = path.split('.')[0] + '.' + resultType;
-    cmd = ['phantomjs /src/plugins/custom.js', resource, fileName, width, height].join(' ');
+    cmd = ['phantomjs /src/plugins/custom.js', resource, fileName, width, height, wait].join(' ');
 
     childProcess.exec(cmd, function(err, stdout, stderr){
       if (stderr) log.info(stderr);
+      if (err) {
+        log.error('Error: ', err);
+        response.send('Error occurred.');
+        return;
+      }
 
       response.sendFile(fileName, function (err){
         if (err) {
