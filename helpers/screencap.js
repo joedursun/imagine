@@ -43,11 +43,16 @@ var customScreenCapScript = function(params, response) {
     cmd = ['phantomjs /src/plugins/custom.js', resource, fileName, width, height, wait].join(' ');
 
     childProcess.exec(cmd, function(err, stdout, stderr){
+      filesize = fs.statSync(fileName)['size'];
+
       if (stderr) log.info(stderr);
       if (err) {
         log.error('Error: ', err);
-        response.send('Error occurred.');
+        response.sendStatus(500);
         return;
+      } else if (filesize === 0) {
+        log.info('Empty file created for: ', params);
+        response.sendStatus(500);
       }
 
       response.sendFile(fileName, function (err){
