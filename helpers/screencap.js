@@ -43,7 +43,13 @@ var customScreenCapScript = function(params, response) {
     cmd = ['phantomjs /src/plugins/custom.js', resource, fileName, width, height, wait].join(' ');
 
     childProcess.exec(cmd, function(err, stdout, stderr){
-      filesize = fs.statSync(fileName)['size'];
+      var filesize;
+
+      try {
+        filesize = fs.statSync(fileName)['size'];
+      } catch(e) {
+        filesize = 0;
+      }
 
       if (stderr) log.info(stderr);
       if (err) {
