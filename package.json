@@ -6,7 +6,7 @@
   "author": "Joe Dursun <joe@clockwisemd.com>",
   "dependencies": {
     "express": "4.14.0",
-    "phantomjs-prebuilt": "2.1.12",
+    "phantomjs-prebuilt": "2.1.14",
     "tmp": "0.0.28",
     "winston": "2.2.0",
     "pug": "2.0.0-beta6",
