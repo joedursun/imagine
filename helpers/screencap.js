@@ -35,12 +35,12 @@ var customScreenCapScript = function(params, response) {
         resource = params.resource,
         width = Number(params.w) || 1920,
         height = Number(params.h) || 1080,
-        wait = Number(params.wait) || 250;
+        wait = Number(params.wait) || null; // let the custom script provide the default wait time
 
     var cmd, fileName, stringParams;
 
     fileName = path.split('.')[0] + '.' + resultType;
-    cmd = ['phantomjs /src/plugins/custom.js', resource, fileName, width, height, wait].join(' ');
+    cmd = ['phantomjs /src/plugins/custom.js', resource, fileName, width, height, wait].join(' ').trim();
 
     childProcess.exec(cmd, function(err, stdout, stderr){
       var filesize;
