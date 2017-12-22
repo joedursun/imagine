@@ -21,6 +21,21 @@ The test script will rebuild the Docker image before running the suite so the te
 Sometimes npm does not install packages successfully causing a failed build, but this can be dealt with by re-running
 the Docker build command (or the appropriate script if you're using them).
 
+## Deployment
+
+Since Imagine is already containerized, it's easy to deploy with Kubernetes. Make sure to have [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) installed and configured before moving on.
+You'll also want to have a running kubernetes cluster. Locally you can use [minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/).
+Google Kubernetes Engine and Azure provide seemless setup of Kubernetes clusters and AWS is currently in preview.
+
+There's a simple, quick-start kubernetes deployment.yaml file provided in this repo to work as a starting point (referencing a public image).
+For production purposes you'll want to use an image from a private Docker registry to avoid sharing your app secret.
+
+Once you have a running kubernetes cluster and set your kubectl current-context appropriately just run `kubectl apply -f deployment.yaml`
+Be sure to update the reference to your custom image if you're running this in production.
+
+Use `kubectl describe service imagine-service` to display information about the newly deployed service (including external IP if you didn't provide one).
+
+
 ## Usage
 
 Currently there are two routes that are available: `/capture` and `/heartbeat`. The heartbeat route is covered in the
