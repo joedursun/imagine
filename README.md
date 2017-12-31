@@ -33,6 +33,8 @@ For production purposes you'll want to use an image from a private Docker regist
 Once you have a running kubernetes cluster and set your kubectl current-context appropriately just run `kubectl apply -f deployment.yaml`
 Be sure to update the reference to your custom image if you're running this in production.
 
+The provided deployment.yaml file assumes you've got at least 1 vCPU available in your cluster and at least  512 MB of available memory (change if necessary).
+
 Use `kubectl describe service imagine-service` to display information about the newly deployed service (including external IP if you didn't provide one).
 
 
