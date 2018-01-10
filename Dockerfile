@@ -16,7 +16,7 @@ COPY . /src
 # Expose port 80
 EXPOSE 80
 
-ENV PATH /src/node_modules/phantomjs-prebuilt/lib/phantom/bin:/src/node_modules/mocha/bin:$PATH
+ENV PATH /src/node_modules/phantomjs-prebuilt/lib/phantom/bin:/src/node_modules/mocha/bin:/src/node_modules/pm2/bin:$PATH
 
 # Start up the app
-CMD ["node", "/src/app.js"]
+CMD ["pm2-runtime", "/src/process.yml"]

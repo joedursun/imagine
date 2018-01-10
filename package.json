@@ -10,7 +10,8 @@
     "tmp": "0.0.28",
     "winston": "2.2.0",
     "pug": "2.0.0-beta6",
-    "js-yaml": "3.6.0"
+    "js-yaml": "3.6.0",
+    "pm2": "*"
   },
   "devDependencies": {
     "mocha": "2.4.5",
